@@ -24,4 +24,4 @@ Portfolio-wide governance and the Portfolio Control Plane (PCP) for the GenAI Ar
 
 ---
 
-Built by S. Somasundaram · Dammam, KSA · 2026
+Built by Sowthri · Dammam, KSA · 2026
