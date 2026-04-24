@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import WaveProgress from '../components/WaveProgress.astro';
 
 const projects = [
   {
@@ -38,6 +39,8 @@ const projects = [
     <h2>Projects</h2>
     {projects.map((p) => <ProjectCard project={p} />)}
   </section>
+
+  <WaveProgress />
 
   <section class="container" style="padding-bottom: var(--space-xl);">
     <h2>Operating principles</h2>

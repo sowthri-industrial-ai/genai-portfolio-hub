@@ -1,0 +1,146 @@
+---
+// Wave progress dashboard · reflects current Ground Zero build status
+const waves = [
+  {
+    num: 1,
+    title: "Platform · Identity + Runtime Substrate",
+    briefs: "A + B",
+    planned: "Days 1-5",
+    actual: "Day 1",
+    status: "closed",
+    deliverables: [
+      "4 foundation Bicep modules (naming · tags · keyvault · managed-identity)",
+      "10 runtime Bicep modules (aoai · ai-search · cosmos · blob · etc.)",
+      "6 Terraform mirrors",
+      "Docker Compose · 4-service local stack",
+      "platform-contract.yml + runtime-contract.yml",
+      "runbook §§ 1-6",
+    ],
+  },
+  {
+    num: 2,
+    title: "Delivery Pipeline + Portfolio Control Plane",
+    briefs: "C + D",
+    planned: "Days 6-10",
+    actual: "Day 1",
+    status: "closed",
+    deliverables: [
+      "7 GitHub Actions workflows (CI · security · deploy · teardown · eval · red-team · pr-bot)",
+      "4 stage gates (G1 build · G2 safety · G3 health · G4 eval)",
+      "Ledger schema + JSONL format",
+      "Astro 5 PCP · 8 zones · editorial aesthetic",
+      "Live on GitHub Pages",
+      "runbook §§ 7-12",
+    ],
+  },
+  {
+    num: 3,
+    title: "Hello AI Payload",
+    briefs: "E",
+    planned: "Days 11-14",
+    actual: "Day 2 (in progress)",
+    status: "in-progress",
+    deliverables: [
+      "Minimal RAG · NIST corpus · hybrid retrieval",
+      "LangGraph agent · 4 nodes · HITL interrupt",
+      "Multi-agent MCP · Supervisor + Retriever Specialist",
+      "Semantic Kernel planner + Cosmos memory",
+      "Document Intelligence + LlamaIndex + ColPali paths",
+      "Azure Functions cost aggregator · ALLaM bilingual demo",
+      "Streamlit UI · 3 tabs · 7-tier test harness",
+      "Three demo-fails branches (ADR-0011)",
+    ],
+  },
+  {
+    num: 4,
+    title: "Azure Activation + Validation",
+    briefs: "Cross-cutting",
+    planned: "Days 15-18",
+    actual: "pending",
+    status: "pending",
+    deliverables: [
+      "Azure $200 credit activation",
+      "Deploy Bicep substrate to Sweden Central",
+      "Populate platform-contract.yml with real IDs",
+      "End-to-end smoke test · all 4 targets",
+      "Ephemeral endpoint spin-up proof (ADR-0013)",
+      "First ledger entry from real deploy",
+    ],
+  },
+  {
+    num: 5,
+    title: "Close-out + Charter #1 Handoff",
+    briefs: "Polish",
+    planned: "Days 19-21",
+    actual: "pending",
+    status: "pending",
+    deliverables: [
+      "DoD validation · all 13 criteria",
+      "Fresh-start reproduction < 20 min (DoD #10)",
+      "Close-out narrative in runbook",
+      "Charter #1 draft · Project 1 scope decision",
+    ],
+  },
+];
+
+const statusColors: Record<string, string> = {
+  closed: "var(--status-live)",
+  "in-progress": "var(--amber)",
+  pending: "var(--ink-muted)",
+};
+
+const statusLabels: Record<string, string> = {
+  closed: "✓ Closed",
+  "in-progress": "◐ In progress",
+  pending: "○ Pending",
+};
+
+const closedCount = waves.filter((w) => w.status === "closed").length;
+const totalCount = waves.length;
+const percent = Math.round((closedCount / totalCount) * 100);
+---
+
+<section class="container" style="padding-bottom: var(--space-xl);">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
+    <h2 style="margin: 0;">Ground Zero · Build Progress</h2>
+    <span class="mono" style="color: var(--ink-muted); font-size: var(--text-sm);">
+      {closedCount} / {totalCount} waves · {percent}%
+    </span>
+  </div>
+
+  <div style="margin-bottom: var(--space-lg);">
+    <div style="height: 6px; background: var(--paper-dark); border-radius: 3px; overflow: hidden;">
+      <div style={`height: 100%; width: ${percent}%; background: linear-gradient(90deg, var(--teal), var(--amber)); transition: width 0.4s;`}></div>
+    </div>
+  </div>
+
+  <div style="display: grid; gap: var(--space-sm);">
+    {waves.map((w) => (
+      <article style={`padding: var(--space-md); background: var(--paper); border: 1px solid var(--grid-line); border-left: 4px solid ${statusColors[w.status]}; border-radius: 4px;`}>
+        <header style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-xs); flex-wrap: wrap; gap: var(--space-xs);">
+          <div>
+            <span class="mono" style="color: var(--ink-muted); font-size: var(--text-xs); letter-spacing: 0.1em;">WAVE {w.num} · BRIEF {w.briefs}</span>
+            <h3 style="margin: 0.25em 0 0 0;">{w.title}</h3>
+          </div>
+          <span class="mono" style={`color: ${statusColors[w.status]}; font-size: var(--text-sm); white-space: nowrap;`}>
+            {statusLabels[w.status]}
+          </span>
+        </header>
+        <div style="display: flex; gap: var(--space-md); margin-bottom: var(--space-sm); font-size: var(--text-sm); color: var(--ink-muted);">
+          <span class="mono">Planned: {w.planned}</span>
+          <span class="mono">Actual: {w.actual}</span>
+        </div>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          {w.deliverables.map((d) => (
+            <li style="padding: 0.25em 0; font-size: var(--text-sm); color: var(--ink-muted);">
+              <span style={`color: ${statusColors[w.status]}; margin-right: 0.5em;`}>
+                {w.status === "closed" ? "✓" : w.status === "in-progress" ? "◐" : "○"}
+              </span>
+              {d}
+            </li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </div>
+</section>
