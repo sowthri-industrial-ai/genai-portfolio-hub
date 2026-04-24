@@ -1,0 +1,74 @@
+/* Editorial design tokens · matches architecture.html aesthetic */
+:root {
+  /* Paper-cream palette */
+  --paper: #FAF6EC;
+  --paper-dark: #F0EADA;
+  --ink: #1a1a1a;
+  --ink-muted: #4a4a4a;
+
+  /* Accent · teal + amber */
+  --teal: #0D3B52;
+  --teal-light: #1a5470;
+  --amber: #B35C00;
+  --amber-light: #D87000;
+
+  /* Grid texture */
+  --grid-line: rgba(13, 59, 82, 0.04);
+
+  /* Typography */
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+
+  /* Type scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 3rem;
+
+  /* Status colors */
+  --status-live: #16a34a;
+  --status-sleeping: #ca8a04;
+  --status-down: #dc2626;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+body {
+  font-family: var(--font-serif);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.mono { font-family: var(--font-mono); }
+.serif { font-family: var(--font-serif); }
+
+a { color: var(--teal); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--amber); }
+
+h1, h2, h3 { font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); margin-top: var(--space-lg); margin-bottom: var(--space-sm); }
+h3 { font-size: var(--text-xl); margin-top: var(--space-md); margin-bottom: var(--space-xs); }
+
+code { font-family: var(--font-mono); font-size: 0.9em; background: var(--paper-dark); padding: 0.15em 0.4em; border-radius: 3px; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: var(--space-md); }

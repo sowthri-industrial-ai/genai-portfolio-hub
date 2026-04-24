@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="TCO">
+  <section class="container" style="padding: var(--space-lg) var(--space-md); max-width: 720px;">
+    <h1>Total Cost of Ownership</h1>
+    <p style="color: var(--ink-muted); margin-bottom: var(--space-md);">
+      Real numbers from the source TCO workbook · no illustrative values.
+    </p>
+
+    <div style="background: var(--paper-dark); padding: var(--space-md); border-radius: 4px; margin-bottom: var(--space-md);">
+      <div style="display: grid; grid-template-columns: 1fr auto; gap: var(--space-xs);">
+        <div>Ground Zero actual spend</div><div class="mono"><strong>$21.16</strong></div>
+        <div>NFR-04 ceiling</div><div class="mono">$25.00</div>
+        <div>Headroom</div><div class="mono" style="color: var(--status-live);">$3.84 · PASS</div>
+        <div>Reserved for Project 1+</div><div class="mono">$178.84 of $200</div>
+      </div>
+    </div>
+
+    <p>
+      Full workbook with 55 formulas and per-line calculation logic is committed to the project repo at
+      <code>docs/06-tco.xlsx</code> · rev 2.0 · companion document for every reviewer conversation.
+    </p>
+
+    <h2>Cost drivers · Ground Zero</h2>
+    <ul style="list-style: none;">
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
+        <span>Azure OpenAI tokens (29.6M total)</span><span class="mono">$6.24</span>
+      </li>
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
+        <span>Container Apps · 3-day pulse</span><span class="mono">$2.34</span>
+      </li>
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
+        <span>Azure ML NC6 GPU · 2hr LoRA demo</span><span class="mono">$1.80</span>
+      </li>
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
+        <span>AOAI fine-tune endpoint · 1hr ephemeral</span><span class="mono">$1.70</span>
+      </li>
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
+        <span>ALLaM demo endpoint · 1hr + 50K tokens</span><span class="mono">$1.56</span>
+      </li>
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
+        <span>Key Vault + ACR Basic (pro-rata)</span><span class="mono">$1.32</span>
+      </li>
+      <li style="padding: var(--space-xs) 0; display: flex; justify-content: space-between;">
+        <span>Buffer · unplanned + re-run</span><span class="mono">$6.00</span>
+      </li>
+    </ul>
+  </section>
+</Base>

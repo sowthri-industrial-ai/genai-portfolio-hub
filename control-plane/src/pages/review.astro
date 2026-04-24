@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import LiveStatusBadge from '../components/LiveStatusBadge.astro';
+import DriftIndicator from '../components/DriftIndicator.astro';
+---
+<Base title="Live Review">
+  <section class="container" style="padding: var(--space-lg) var(--space-md); max-width: 720px;">
+    <h1>Live Review</h1>
+    <p style="color: var(--ink-muted); margin-bottom: var(--space-md);">
+      Reviewer-facing surface · live endpoint status · SHA drift · TCO-at-a-glance.
+    </p>
+
+    <h2>Hello AI endpoint</h2>
+    <LiveStatusBadge status="SLEEPING" />
+    <p style="margin-top: var(--space-sm); color: var(--ink-muted);">
+      Ephemeral by design. Contact for interview spin-up · ~$0.50 per session · tears down after.
+    </p>
+
+    <h2>SHA drift</h2>
+    <DriftIndicator localSha="pending" gitSha="pending" hfSha="n/a" />
+
+    <h2>At a glance</h2>
+    <ul style="list-style: none;">
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line);">
+        <strong>TCO</strong>: $21.16 actual / $25.00 ceiling · <a href="/tco">details</a>
+      </li>
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line);">
+        <strong>Stack coverage</strong>: 29 of 30 components · Next.js deferred to Project 3 by design
+      </li>
+      <li style="padding: var(--space-xs) 0;">
+        <strong>Ledger</strong>: <a href="/ledger">most recent deploys</a>
+      </li>
+    </ul>
+  </section>
+</Base>

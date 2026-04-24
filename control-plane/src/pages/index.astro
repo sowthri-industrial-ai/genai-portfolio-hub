@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'Project Ground Zero',
+    slug: 'project-00-ground-zero',
+    status: 'in-progress' as const,
+    summary: 'Architectural substrate · platform before payload · OIDC federation · Azure landing zone · 7-tier test harness · Hello AI payload.',
+    tech: ['LangGraph', 'Semantic Kernel', 'Azure OpenAI', 'Bicep', 'Terraform', 'Container Apps'],
+  },
+  {
+    title: 'Project 1 · Industrial RAG',
+    slug: 'project-01-industrial-rag',
+    status: 'planned' as const,
+    summary: 'Planned · follows Ground Zero close-out · vertical TBD (Refining · Petrochem · Utilities · Mining).',
+    tech: ['LlamaIndex', 'ColPali', 'Document Intelligence', 'RAGAS'],
+  },
+];
+---
+<Base title="Home" description="S. Somasundaram · GenAI Architect Portfolio · Industrial AI">
+  <section class="container" style="padding-top: var(--space-lg); padding-bottom: var(--space-lg);">
+    <div style="max-width: 720px;">
+      <p class="mono" style="color: var(--amber); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-sm);">
+        Dammam · KSA · 2026
+      </p>
+      <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-sm);">
+        Industrial AI for Refining, Petrochemicals, Utilities, and Mining
+      </h1>
+      <p style="font-size: var(--text-lg); color: var(--ink-muted);">
+        A GenAI Architect's working portfolio. Platform substrate first — then use-case projects. Every project ships with infrastructure-as-code, observability, safety guardrails, and a full TCO.
+      </p>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: var(--space-xl);">
+    <h2>Projects</h2>
+    {projects.map((p) => <ProjectCard project={p} />)}
+  </section>
+
+  <section class="container" style="padding-bottom: var(--space-xl);">
+    <h2>Operating principles</h2>
+    <ul style="list-style: none; max-width: 720px;">
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line);"><strong>Platform before payload.</strong> Ground Zero substrate supports every project that follows.</li>
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line);"><strong>Portfolio-grade, not production-grade.</strong> Production-ready in design · portfolio-economical in operation.</li>
+      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line);"><strong>Ephemeral by default (ADR-0013).</strong> Azure endpoints spin up per interview (~$0.50) · tear down after.</li>
+      <li style="padding: var(--space-xs) 0;"><strong>Deliberate failure branches.</strong> The pipeline's gates fire visibly — not theater.</li>
+    </ul>
+  </section>
+</Base>

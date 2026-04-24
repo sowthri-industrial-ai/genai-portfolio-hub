@@ -1,0 +1,29 @@
+---
+// Live Status Badge · handles LIVE · SLEEPING · DOWN per ADR-0013 ephemeral endpoint pattern
+interface Props {
+  endpoint?: string;
+  status?: 'LIVE' | 'SLEEPING' | 'DOWN';
+}
+
+const { endpoint = null, status = 'SLEEPING' } = Astro.props;
+
+const statusConfig: Record<string, { color: string; label: string; dot: string }> = {
+  LIVE:     { color: 'var(--status-live)',     label: 'Live',     dot: '●' },
+  SLEEPING: { color: 'var(--status-sleeping)', label: 'Sleeping', dot: '◐' },
+  DOWN:     { color: 'var(--status-down)',     label: 'Down',     dot: '○' },
+};
+
+const cfg = statusConfig[status] || statusConfig.SLEEPING;
+---
+<div class="status-badge" style="display: inline-flex; align-items: center; gap: 0.5em; padding: 0.5em 1em; background: var(--paper-dark); border: 1px solid var(--grid-line); border-radius: 4px; font-family: var(--font-mono); font-size: var(--text-sm);">
+  <span style={`color: ${cfg.color}; font-size: 1.2em;`}>{cfg.dot}</span>
+  <span>{cfg.label}</span>
+  {status === 'SLEEPING' && (
+    <span style="color: var(--ink-muted); font-size: var(--text-xs); margin-left: 0.5em;">
+      · ephemeral · spin up ~$0.50 per session (ADR-0013)
+    </span>
+  )}
+  {endpoint && status === 'LIVE' && (
+    <a href={endpoint} style="margin-left: 0.5em; font-size: var(--text-xs);">↗ open</a>
+  )}
+</div>

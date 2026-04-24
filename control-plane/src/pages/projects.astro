@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'Project Ground Zero',
+    slug: 'project-00-ground-zero',
+    status: 'in-progress' as const,
+    summary: 'Architectural substrate · OIDC federation · 7-tier test harness · Hello AI payload.',
+    tech: ['LangGraph', 'Azure OpenAI', 'Bicep', 'Container Apps', 'Cosmos'],
+  },
+  {
+    title: 'Project 1 · Industrial RAG',
+    slug: 'project-01-industrial-rag',
+    status: 'planned' as const,
+    summary: 'Vertical TBD. Deep RAG on structured industrial corpora · LlamaIndex routers · ColPali for P&IDs.',
+    tech: ['LlamaIndex', 'ColPali', 'Document Intelligence'],
+  },
+  {
+    title: 'Project 2 · Agentic OT/IT',
+    slug: 'project-02-agentic-ot-it',
+    status: 'planned' as const,
+    summary: 'Multi-agent OT/IT bridge · MCP-heavy · Semantic Kernel planner · Azure Functions event-driven.',
+    tech: ['MCP', 'Semantic Kernel', 'Azure Functions'],
+  },
+  {
+    title: 'Project 3 · Flagship',
+    slug: 'project-03-flagship',
+    status: 'planned' as const,
+    summary: 'End-to-end flagship · ALLaM Arabic-primary · Next.js custom UI · fine-tune actually run.',
+    tech: ['ALLaM', 'Next.js', 'Azure ML'],
+  },
+];
+---
+<Base title="Projects">
+  <section class="container" style="padding: var(--space-lg) var(--space-md);">
+    <h1>Projects</h1>
+    <p style="color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-md);">
+      Four projects · built sequentially · each inheriting from Ground Zero's substrate. Status is honest · planned means planned · not "coming soon" handwave.
+    </p>
+    {projects.map((p) => <ProjectCard project={p} />)}
+  </section>
+</Base>

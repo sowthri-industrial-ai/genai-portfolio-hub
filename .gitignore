@@ -7,3 +7,8 @@ dist/
 .DS_Store
 .vscode/
 .idea/
+
+# Astro build output
+control-plane/dist/
+control-plane/node_modules/
+control-plane/.astro/

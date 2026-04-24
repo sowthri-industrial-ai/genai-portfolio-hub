@@ -1,0 +1,20 @@
+---
+// Drift Indicator · compares Local / Git / HF SHAs (Brief E wires real data)
+interface Props {
+  localSha?: string;
+  gitSha?: string;
+  hfSha?: string;
+}
+
+const { localSha = 'unknown', gitSha = 'unknown', hfSha = 'n/a' } = Astro.props;
+
+const drifted = localSha !== gitSha || (hfSha !== 'n/a' && hfSha !== gitSha);
+const color = drifted ? 'var(--amber)' : 'var(--status-live)';
+---
+<div class="mono" style={`font-size: var(--text-xs); padding: var(--space-xs); background: var(--paper-dark); border-left: 3px solid ${color}; border-radius: 3px;`}>
+  <div style="color: var(--ink-muted); margin-bottom: 0.3em;">SHA drift check:</div>
+  <div>Local: <strong>{localSha.substring(0, 7)}</strong></div>
+  <div>Git: <strong>{gitSha.substring(0, 7)}</strong></div>
+  <div>HF: <strong>{hfSha === 'n/a' ? 'n/a' : hfSha.substring(0, 7)}</strong></div>
+  {drifted && <div style="color: var(--amber); margin-top: 0.3em;">⚠ drift detected</div>}
+</div>

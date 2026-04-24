@@ -1,0 +1,34 @@
+---
+interface Props {
+  project: {
+    title: string;
+    slug: string;
+    status: 'in-progress' | 'complete' | 'planned';
+    summary: string;
+    tech?: string[];
+  };
+}
+
+const { project } = Astro.props;
+const statusColors: Record<string, string> = {
+  'in-progress': 'var(--amber)',
+  'complete':    'var(--status-live)',
+  'planned':     'var(--ink-muted)',
+};
+---
+<article style="padding: var(--space-md); background: var(--paper); border: 1px solid var(--grid-line); border-radius: 4px; margin-bottom: var(--space-sm);">
+  <header style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-xs);">
+    <h3 style="margin: 0;"><a href={`/projects/${project.slug}`}>{project.title}</a></h3>
+    <span class="mono" style={`color: ${statusColors[project.status]}; font-size: var(--text-xs); text-transform: uppercase;`}>
+      {project.status}
+    </span>
+  </header>
+  <p style="color: var(--ink-muted); margin-bottom: var(--space-xs);">{project.summary}</p>
+  {project.tech && (
+    <div style="display: flex; flex-wrap: wrap; gap: 0.4em; margin-top: var(--space-sm);">
+      {project.tech.map((t) => (
+        <span class="mono" style="font-size: var(--text-xs); padding: 0.2em 0.6em; background: var(--paper-dark); border-radius: 3px;">{t}</span>
+      ))}
+    </div>
+  )}
+</article>
