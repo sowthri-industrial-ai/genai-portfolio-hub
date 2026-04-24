@@ -3,6 +3,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://sowthri-industrial-ai.github.io',
+  base: '/genai-portfolio-hub',
   integrations: [sitemap()],
   output: 'static',
   build: {

@@ -18,7 +18,7 @@ const statusColors: Record<string, string> = {
 ---
 <article style="padding: var(--space-md); background: var(--paper); border: 1px solid var(--grid-line); border-radius: 4px; margin-bottom: var(--space-sm);">
   <header style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-xs);">
-    <h3 style="margin: 0;"><a href={`/projects/${project.slug}`}>{project.title}</a></h3>
+    <h3 style="margin: 0;"><a href={`/genai-portfolio-hub/projects/${project.slug}`}>{project.title}</a></h3>
     <span class="mono" style={`color: ${statusColors[project.status]}; font-size: var(--text-xs); text-transform: uppercase;`}>
       {project.status}
     </span>
