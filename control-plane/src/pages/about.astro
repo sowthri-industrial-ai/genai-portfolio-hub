@@ -4,19 +4,49 @@ import Base from '../layouts/Base.astro';
 <Base title="About">
   <section class="container" style="padding: var(--space-lg) var(--space-md); max-width: 720px;">
     <h1>About</h1>
-    <p>
-      Sowthri · GenAI Architect · based in Dammam, Saudi Arabia.
+    <p style="font-size: var(--text-lg); color: var(--ink-muted);">
+      Sowthri · GenAI Architect · Dammam, Saudi Arabia.
     </p>
-    <p style="margin-top: var(--space-sm);">
-      This portfolio demonstrates end-to-end architectural capability for Industrial AI in Refining, Petrochemicals, Utilities, and Mining. Every project ships with infrastructure-as-code, observability, safety guardrails, tests across seven tiers, and a full TCO reconciliation.
+    <p style="margin-top: var(--space-md);">
+      I design and build GenAI platforms for heavy industry — refining, petrochemicals, utilities, and mining. My focus is end-to-end architectural capability · not one-off proofs of concept.
     </p>
+
     <h2>Approach</h2>
+    <ul>
+      <li><strong>Platform before payload.</strong> The substrate comes first · then use cases inherit it.</li>
+      <li><strong>Production-ready in design · portfolio-economical in operation.</strong> Every pattern could scale · spend stays under $25.</li>
+      <li><strong>Full public source.</strong> Nothing private · nothing hidden. Two GitHub repositories · everything reviewable.</li>
+      <li><strong>Ephemeral by design (ADR-0013).</strong> Azure endpoints spin up per demo · tear down after · $0.50 per session.</li>
+      <li><strong>Deliberate failure branches (ADR-0011).</strong> Three permanent branches show the pipeline's gates firing. Not theater.</li>
+    </ul>
+
+    <h2>Regional context</h2>
     <p>
-      Platform before payload. Production-ready in design · portfolio-economical in operation. Deliberate failure branches so reviewers see the gates actually firing. Full public source across two GitHub repositories — nothing private · nothing hidden.
+      Based in Dammam · deep familiarity with the Saudi Aramco, SABIC, Ma'aden ecosystem. Vision 2030 aware. Fluent in Arabic market expectations. Portfolio includes ALLaM (SDAIA's Arabic-English model) integration as a regional signal.
     </p>
-    <h2>Contact</h2>
-    <p>
-      <a href="https://github.com/sowthri-industrial-ai">GitHub: sowthri-industrial-ai</a>
+
+    <h2 id="contact">Get in touch</h2>
+    <p style="color: var(--ink-muted);">
+      Open to GenAI Architect roles in Saudi Arabia, GCC, and remote. Available for contract, full-time, or consulting engagements.
+    </p>
+
+    <div style="display: grid; gap: var(--space-xs); margin-top: var(--space-md);">
+      <a href="mailto:sowthri.industrial.ai@gmail.com" style="padding: var(--space-sm); background: var(--paper); border: 1px solid var(--grid-line); border-radius: 4px; text-decoration: none; color: var(--ink);">
+        <div class="mono" style="font-size: var(--text-xs); color: var(--ink-muted); letter-spacing: 0.1em;">EMAIL</div>
+        <div style="margin-top: 0.3em;">sowthri.industrial.ai@gmail.com</div>
+      </a>
+      <a href="https://www.linkedin.com/in/sowthri-somasundaram" target="_blank" rel="noopener" style="padding: var(--space-sm); background: var(--paper); border: 1px solid var(--grid-line); border-radius: 4px; text-decoration: none; color: var(--ink);">
+        <div class="mono" style="font-size: var(--text-xs); color: var(--ink-muted); letter-spacing: 0.1em;">LINKEDIN</div>
+        <div style="margin-top: 0.3em;">in/sowthri-somasundaram</div>
+      </a>
+      <a href="https://github.com/sowthri-industrial-ai" target="_blank" rel="noopener" style="padding: var(--space-sm); background: var(--paper); border: 1px solid var(--grid-line); border-radius: 4px; text-decoration: none; color: var(--ink);">
+        <div class="mono" style="font-size: var(--text-xs); color: var(--ink-muted); letter-spacing: 0.1em;">GITHUB</div>
+        <div style="margin-top: 0.3em;">@sowthri-industrial-ai</div>
+      </a>
+    </div>
+
+    <p style="margin-top: var(--space-md); font-size: var(--text-sm); color: var(--ink-muted);">
+      <strong>Interview availability:</strong> I can spin up the live Azure environment in ~8 minutes · ~$0.50 burn rate per session · tears down automatically (ADR-0013). Just reach out.
     </p>
   </section>
 </Base>

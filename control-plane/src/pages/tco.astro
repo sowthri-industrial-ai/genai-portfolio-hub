@@ -1,50 +1,101 @@
 ---
 import Base from '../layouts/Base.astro';
+
+const costBreakdown = [
+  { item: 'Azure OpenAI tokens · 29.6M total', usd: 6.24, cat: 'Compute' },
+  { item: 'Container Apps · 3-day pulse', usd: 2.34, cat: 'Compute' },
+  { item: 'Azure ML NC6 GPU · 2hr LoRA demo', usd: 1.80, cat: 'ML' },
+  { item: 'AOAI fine-tune endpoint · 1hr', usd: 1.70, cat: 'ML' },
+  { item: 'ALLaM demo · 1hr + 50K tokens', usd: 1.56, cat: 'ML' },
+  { item: 'Key Vault + ACR Basic (pro-rata)', usd: 1.32, cat: 'Platform' },
+  { item: 'Buffer · unplanned + re-run', usd: 6.00, cat: 'Buffer' },
+];
+const totalUSD = costBreakdown.reduce((s, x) => s + x.usd, 0);
+const ceilingUSD = 25;
+const headroom = ceilingUSD - totalUSD;
+const maxBar = Math.max(...costBreakdown.map(c => c.usd));
+
+const catColors: Record<string, string> = {
+  'Compute': 'var(--teal)',
+  'ML': 'var(--amber)',
+  'Platform': 'var(--ink-muted)',
+  'Buffer': 'var(--status-sleeping)',
+};
 ---
 <Base title="TCO">
-  <section class="container" style="padding: var(--space-lg) var(--space-md); max-width: 720px;">
+  <section class="container" style="padding: var(--space-lg) var(--space-md); max-width: 840px;">
     <h1>Total Cost of Ownership</h1>
     <p style="color: var(--ink-muted); margin-bottom: var(--space-md);">
       Real numbers from the source TCO workbook · no illustrative values.
+      Every cost sourced from <code>docs/06-tco.xlsx</code> · 55 formulas · Rev 2.0.
     </p>
 
-    <div style="background: var(--paper-dark); padding: var(--space-md); border-radius: 4px; margin-bottom: var(--space-md);">
-      <div style="display: grid; grid-template-columns: 1fr auto; gap: var(--space-xs);">
-        <div>Ground Zero actual spend</div><div class="mono"><strong>$21.16</strong></div>
-        <div>NFR-04 ceiling</div><div class="mono">$25.00</div>
-        <div>Headroom</div><div class="mono" style="color: var(--status-live);">$3.84 · PASS</div>
-        <div>Reserved for Project 1+</div><div class="mono">$178.84 of $200</div>
+    <!-- Summary badges -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-xs); margin-bottom: var(--space-md);">
+      <div style="padding: var(--space-sm); background: var(--paper-dark); border-radius: 4px; text-align: center;">
+        <div class="mono" style="font-size: var(--text-xs); color: var(--ink-muted);">GROUND ZERO ACTUAL</div>
+        <div style="font-size: 1.8rem; font-weight: 600; margin-top: 0.2em;">${totalUSD.toFixed(2)}</div>
+      </div>
+      <div style="padding: var(--space-sm); background: var(--paper-dark); border-radius: 4px; text-align: center;">
+        <div class="mono" style="font-size: var(--text-xs); color: var(--ink-muted);">NFR-04 CEILING</div>
+        <div style="font-size: 1.8rem; font-weight: 600; margin-top: 0.2em;">${ceilingUSD.toFixed(2)}</div>
+      </div>
+      <div style="padding: var(--space-sm); background: var(--paper-dark); border-radius: 4px; text-align: center; border: 2px solid var(--status-live);">
+        <div class="mono" style="font-size: var(--text-xs); color: var(--status-live);">HEADROOM · PASS</div>
+        <div style="font-size: 1.8rem; font-weight: 600; margin-top: 0.2em; color: var(--status-live);">${headroom.toFixed(2)}</div>
       </div>
     </div>
 
-    <p>
-      Full workbook with 55 formulas and per-line calculation logic is committed to the project repo at
-      <code>docs/06-tco.xlsx</code> · rev 2.0 · companion document for every reviewer conversation.
-    </p>
+    <!-- Horizontal bar chart -->
+    <h2>Cost breakdown</h2>
+    <div style="background: var(--paper); padding: var(--space-md); border: 1px solid var(--grid-line); border-radius: 4px; margin-bottom: var(--space-md);">
+      {costBreakdown.sort((a, b) => b.usd - a.usd).map((c) => {
+        const pct = (c.usd / maxBar) * 100;
+        return (
+          <div style="margin-bottom: var(--space-sm);">
+            <div style="display: flex; justify-content: space-between; font-size: var(--text-sm); margin-bottom: 0.3em;">
+              <span>
+                <span class="mono" style={`font-size: var(--text-xs); color: ${catColors[c.cat]}; padding: 0.1em 0.5em; background: var(--paper-dark); border-radius: 3px; margin-right: 0.5em;`}>{c.cat}</span>
+                {c.item}
+              </span>
+              <span class="mono"><strong>${c.usd.toFixed(2)}</strong></span>
+            </div>
+            <div style="height: 8px; background: var(--paper-dark); border-radius: 4px; overflow: hidden;">
+              <div style={`height: 100%; width: ${pct}%; background: ${catColors[c.cat]};`}></div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
 
-    <h2>Cost drivers · Ground Zero</h2>
-    <ul style="list-style: none;">
-      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
-        <span>Azure OpenAI tokens (29.6M total)</span><span class="mono">$6.24</span>
-      </li>
-      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
-        <span>Container Apps · 3-day pulse</span><span class="mono">$2.34</span>
-      </li>
-      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
-        <span>Azure ML NC6 GPU · 2hr LoRA demo</span><span class="mono">$1.80</span>
-      </li>
-      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
-        <span>AOAI fine-tune endpoint · 1hr ephemeral</span><span class="mono">$1.70</span>
-      </li>
-      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
-        <span>ALLaM demo endpoint · 1hr + 50K tokens</span><span class="mono">$1.56</span>
-      </li>
-      <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line); display: flex; justify-content: space-between;">
-        <span>Key Vault + ACR Basic (pro-rata)</span><span class="mono">$1.32</span>
-      </li>
-      <li style="padding: var(--space-xs) 0; display: flex; justify-content: space-between;">
-        <span>Buffer · unplanned + re-run</span><span class="mono">$6.00</span>
-      </li>
-    </ul>
+    <!-- Portfolio envelope -->
+    <h2>Portfolio envelope · $200 Azure free credit</h2>
+    <div style="background: var(--paper); padding: var(--space-md); border: 1px solid var(--grid-line); border-radius: 4px;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+        <span>Ground Zero spend</span>
+        <span class="mono">${totalUSD.toFixed(2)}</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+        <span>Reserved for Project 1+</span>
+        <span class="mono">${(200 - totalUSD).toFixed(2)}</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs); font-weight: 600; padding-top: var(--space-xs); border-top: 1px solid var(--grid-line);">
+        <span>Total portfolio budget</span>
+        <span class="mono">$200.00</span>
+      </div>
+
+      <div style="margin-top: var(--space-md); height: 12px; background: var(--paper-dark); border-radius: 6px; overflow: hidden; display: flex;">
+        <div style={`width: ${(totalUSD / 200) * 100}%; background: var(--teal); height: 100%;`} title={`Ground Zero: $${totalUSD.toFixed(2)}`}></div>
+        <div style={`width: ${((200 - totalUSD) / 200) * 100}%; background: var(--paper-dark); height: 100%;`} title="Reserved"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-top: 0.3em; font-size: var(--text-xs); color: var(--ink-muted);">
+        <span>Ground Zero · {((totalUSD / 200) * 100).toFixed(1)}%</span>
+        <span>Reserved · {(((200 - totalUSD) / 200) * 100).toFixed(1)}%</span>
+      </div>
+    </div>
+
+    <p style="margin-top: var(--space-md); font-size: var(--text-sm); color: var(--ink-muted);">
+      ADR-0013 · Ephemeral endpoint pattern means Azure resources only burn during interview demos · each demo costs ~$0.50 · 40+ demos possible within the $178 reserve.
+    </p>
   </section>
 </Base>

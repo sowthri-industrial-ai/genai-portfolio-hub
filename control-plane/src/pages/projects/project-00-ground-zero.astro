@@ -1,0 +1,126 @@
+---
+import Base from '../../layouts/Base.astro';
+import LiveStatusBadge from '../../components/LiveStatusBadge.astro';
+
+const costBreakdown = [
+  { item: 'Azure OpenAI tokens · 29.6M', usd: 6.24 },
+  { item: 'Container Apps · 3-day pulse', usd: 2.34 },
+  { item: 'Azure ML NC6 GPU · 2hr LoRA demo', usd: 1.80 },
+  { item: 'AOAI fine-tune endpoint · 1hr', usd: 1.70 },
+  { item: 'ALLaM demo · 1hr + 50K tokens', usd: 1.56 },
+  { item: 'Key Vault + ACR Basic', usd: 1.32 },
+  { item: 'Buffer · unplanned + re-run', usd: 6.00 },
+];
+const totalUSD = costBreakdown.reduce((s, x) => s + x.usd, 0);
+const ceilingUSD = 25;
+
+const techByLayer = {
+  'Agent Orchestration': ['LangGraph', 'Semantic Kernel', 'MCP'],
+  'Foundation Models': ['Azure OpenAI · GPT-4o · GPT-4o-mini', 'text-embedding-3-small', 'ALLaM · SDAIA'],
+  'Retrieval & Storage': ['Azure AI Search (hybrid)', 'pgvector', 'Cosmos DB', 'Azure Blob'],
+  'Document Processing': ['Docling', 'Azure Document Intelligence', 'LlamaIndex', 'ColPali'],
+  'Safety & Guardrails': ['NeMo Guardrails', 'Presidio', 'Azure Content Safety'],
+  'Evaluation & Observability': ['RAGAS', 'DeepEval', 'Giskard', 'Langfuse', 'App Insights'],
+  'Security Testing': ['Garak', 'PyRIT'],
+  'Infrastructure': ['Bicep', 'Terraform', 'Azure Container Apps', 'Azure Functions', 'Azure ML'],
+  'Application': ['FastAPI', 'Streamlit', 'Python 3.12', 'uv'],
+};
+---
+<Base title="Project Ground Zero · Detail">
+  <section class="container" style="padding: var(--space-lg) var(--space-md); max-width: 960px;">
+
+    <!-- Header -->
+    <p class="mono" style="color: var(--ink-muted); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-xs);">
+      <a href="/genai-portfolio-hub/projects" style="color: var(--ink-muted);">← All projects</a>
+    </p>
+    <h1 style="margin-bottom: var(--space-sm);">Project Ground Zero</h1>
+    <p style="font-size: var(--text-lg); color: var(--ink-muted); max-width: 720px;">
+      The architectural substrate. Platform before payload. Every subsequent project inherits from this foundation.
+    </p>
+
+    <div style="margin: var(--space-md) 0; display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+      <LiveStatusBadge status="SLEEPING" />
+      <span class="mono" style="padding: 0.5em 1em; background: var(--paper-dark); border-radius: 4px; font-size: var(--text-sm);">
+        Status: 40% complete · Waves 1-2 closed
+      </span>
+    </div>
+
+    <!-- Why this project -->
+    <h2>Why this project exists</h2>
+    <p>
+      Most GenAI portfolios skip straight to a flashy use case. This one doesn't. Ground Zero proves that I can build the <em>platform</em> — IaC · OIDC federation · pipeline gates · test harness · observability · safety stack — before building a single agent. That separation is what senior architects do in real enterprise programs.
+    </p>
+    <p style="margin-top: var(--space-sm);">
+      Once Ground Zero closes, three projects follow that inherit this substrate: an Industrial RAG, an Agentic OT/IT bridge, and a flagship demonstrating end-to-end depth. No wasted scaffolding work — the platform is done.
+    </p>
+
+    <!-- Tech Stack -->
+    <h2>Tech stack · 29 of 30 components exercised</h2>
+    <p style="color: var(--ink-muted); margin-bottom: var(--space-sm);">
+      Next.js deferred by design (ADR-0020) — Streamlit is sufficient for Hello AI · Next.js reserved for the flagship where polished React is the purpose.
+    </p>
+
+    <div style="display: grid; gap: var(--space-xs);">
+      {Object.entries(techByLayer).map(([layer, items]) => (
+        <div style="padding: var(--space-xs) var(--space-sm); background: var(--paper); border: 1px solid var(--grid-line); border-radius: 4px;">
+          <div class="mono" style="font-size: var(--text-xs); color: var(--amber); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3em;">{layer}</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.4em;">
+            {items.map((t) => (
+              <span class="mono" style="font-size: var(--text-xs); padding: 0.2em 0.6em; background: var(--paper-dark); border-radius: 3px;">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- TCO with bar chart -->
+    <h2>TCO · real numbers · $21.16 actual / $25 ceiling</h2>
+    <p style="color: var(--ink-muted); margin-bottom: var(--space-md);">
+      Sourced from <code>docs/06-tco.xlsx</code> · 55 formulas · Rev 2.0.
+      Headroom: <strong style="color: var(--status-live);">$3.84 · PASS</strong>
+    </p>
+
+    <div style="background: var(--paper-dark); padding: var(--space-md); border-radius: 4px; margin-bottom: var(--space-md);">
+      {costBreakdown.map((c) => {
+        const pct = (c.usd / ceilingUSD) * 100;
+        return (
+          <div style="margin-bottom: var(--space-xs);">
+            <div style="display: flex; justify-content: space-between; font-size: var(--text-sm); margin-bottom: 0.2em;">
+              <span>{c.item}</span>
+              <span class="mono"><strong>${c.usd.toFixed(2)}</strong></span>
+            </div>
+            <div style="height: 4px; background: var(--paper); border-radius: 2px; overflow: hidden;">
+              <div style={`height: 100%; width: ${pct}%; background: var(--teal);`}></div>
+            </div>
+          </div>
+        );
+      })}
+
+      <div style="margin-top: var(--space-md); padding-top: var(--space-sm); border-top: 2px solid var(--paper); display: flex; justify-content: space-between; font-size: var(--text-base);">
+        <strong>Total · Ground Zero actual</strong>
+        <span class="mono"><strong>${totalUSD.toFixed(2)}</strong></span>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: var(--text-sm); color: var(--ink-muted); margin-top: 0.3em;">
+        <span>NFR-04 ceiling</span>
+        <span class="mono">${ceilingUSD.toFixed(2)}</span>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <h2>Dive deeper</h2>
+    <ul>
+      <li><a href="https://github.com/sowthri-industrial-ai/project-00-ground-zero" target="_blank" rel="noopener">GitHub repository</a> · full source · 39+ files · 20 ADRs</li>
+      <li><a href="https://github.com/sowthri-industrial-ai/project-00-ground-zero/blob/main/docs/00-charter.md" target="_blank" rel="noopener">Charter</a> · Rev 1.3 · 13 DoD criteria</li>
+      <li><a href="https://raw.githack.com/sowthri-industrial-ai/project-00-ground-zero/main/html/architecture.html" target="_blank" rel="noopener">Architecture visualization</a> · editorial system diagram</li>
+      <li><a href="https://github.com/sowthri-industrial-ai/project-00-ground-zero/blob/main/docs/05-runbook.md" target="_blank" rel="noopener">Runbook</a> · end-to-end setup · 15 sections</li>
+      <li><a href="https://github.com/sowthri-industrial-ai/project-00-ground-zero/blob/main/docs/06-tco.xlsx" target="_blank" rel="noopener">TCO workbook</a> · 55 formulas · 4 sheets</li>
+    </ul>
+
+    <div style="margin-top: var(--space-lg); padding: var(--space-md); background: var(--paper-dark); border-left: 4px solid var(--amber); border-radius: 4px;">
+      <strong>Interview demo</strong>
+      <p style="margin-top: 0.3em; font-size: var(--text-sm); color: var(--ink-muted);">
+        Live Azure endpoint is ephemeral · spin up takes ~8 min · burn rate ~$0.50 per session · tears down automatically after demo. <a href="/genai-portfolio-hub/#contact">Get in touch</a> to schedule.
+      </p>
+    </div>
+  </section>
+</Base>

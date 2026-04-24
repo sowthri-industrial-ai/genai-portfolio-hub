@@ -20,28 +20,49 @@ const projects = [
   },
 ];
 ---
-<Base title="Home" description="Sowthri · GenAI Architect Portfolio · Industrial AI">
+<Base title="Home" description="Sowthri · GenAI Architect · Industrial AI for Refining · Petrochemicals · Utilities · Mining · KSA">
+
+  <!-- HERO · Industrial AI positioning -->
   <section class="container" style="padding-top: var(--space-lg); padding-bottom: var(--space-lg);">
-    <div style="max-width: 720px;">
-      <p class="mono" style="color: var(--amber); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-sm);">
-        Dammam · KSA · 2026
+    <div style="max-width: 800px;">
+      <p class="mono" style="color: var(--amber); font-size: var(--text-xs); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: var(--space-sm);">
+        Dammam · KSA · Saudi Vision 2030 · 2026
       </p>
-      <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-sm);">
-        Industrial AI for Refining, Petrochemicals, Utilities, and Mining
+      <h1 style="font-size: 3.5rem; line-height: 1.1; margin-bottom: var(--space-md); font-weight: 600;">
+        Industrial AI architecture <br/>
+        <span style="color: var(--teal);">for refining · petrochemicals · utilities · mining</span>
       </h1>
-      <p style="font-size: var(--text-lg); color: var(--ink-muted);">
-        A GenAI Architect's working portfolio. Platform substrate first — then use-case projects. Every project ships with infrastructure-as-code, observability, safety guardrails, and a full TCO.
+      <p style="font-size: var(--text-lg); color: var(--ink-muted); max-width: 720px; margin-bottom: var(--space-md); line-height: 1.5;">
+        A GenAI Architect's working portfolio — designed for the heavy-industry operators in the Gulf and beyond. Every project ships with infrastructure-as-code, observability, safety guardrails, seven-tier test harness, and a full TCO reconciled to the dollar.
       </p>
+
+      <div style="display: flex; gap: var(--space-sm); margin-top: var(--space-md); flex-wrap: wrap;">
+        <a href="/genai-portfolio-hub/projects/project-00-ground-zero" style="display: inline-block; padding: 0.8em 1.5em; background: var(--teal); color: var(--paper); text-decoration: none; border-radius: 4px; font-weight: 500;">
+          See Ground Zero →
+        </a>
+        <a href="#contact" style="display: inline-block; padding: 0.8em 1.5em; background: transparent; color: var(--teal); text-decoration: none; border: 1px solid var(--teal); border-radius: 4px; font-weight: 500;">
+          Get in touch
+        </a>
+      </div>
+
+      <div style="margin-top: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid var(--grid-line); display: flex; gap: var(--space-md); flex-wrap: wrap; font-size: var(--text-sm); color: var(--ink-muted);">
+        <span class="mono">🇸🇦 Saudi Aramco · SABIC · Ma'aden context</span>
+        <span class="mono">🌍 SDAIA · Vision 2030 aware</span>
+        <span class="mono">☁️ Azure Sweden Central</span>
+      </div>
     </div>
   </section>
 
+  <!-- Wave Progress -->
+  <WaveProgress />
+
+  <!-- Projects -->
   <section class="container" style="padding-bottom: var(--space-xl);">
     <h2>Projects</h2>
     {projects.map((p) => <ProjectCard project={p} />)}
   </section>
 
-  <WaveProgress />
-
+  <!-- Operating Principles -->
   <section class="container" style="padding-bottom: var(--space-xl);">
     <h2>Operating principles</h2>
     <ul style="list-style: none; max-width: 720px;">
@@ -50,5 +71,32 @@ const projects = [
       <li style="padding: var(--space-xs) 0; border-bottom: 1px solid var(--grid-line);"><strong>Ephemeral by default (ADR-0013).</strong> Azure endpoints spin up per interview (~$0.50) · tear down after.</li>
       <li style="padding: var(--space-xs) 0;"><strong>Deliberate failure branches.</strong> The pipeline's gates fire visibly — not theater.</li>
     </ul>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section id="contact" class="container" style="padding: var(--space-lg) var(--space-md); background: var(--paper-dark); border-radius: 4px; margin-bottom: var(--space-xl); max-width: 900px;">
+    <h2 style="margin-top: 0;">Get in touch</h2>
+    <p style="color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-md);">
+      For GenAI architect opportunities in industrial AI · refining · petrochem · utilities · mining. Based in Dammam · open to KSA, GCC, and remote roles.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-sm); margin-top: var(--space-md);">
+      <a href="https://github.com/sowthri-industrial-ai" target="_blank" rel="noopener" style="padding: var(--space-sm); background: var(--paper); border: 1px solid var(--grid-line); border-radius: 4px; text-decoration: none; color: var(--ink);">
+        <div class="mono" style="font-size: var(--text-xs); color: var(--ink-muted); letter-spacing: 0.1em;">GITHUB</div>
+        <div style="margin-top: 0.3em; font-size: var(--text-base);">@sowthri-industrial-ai</div>
+      </a>
+      <a href="https://www.linkedin.com/in/sowthri-somasundaram" target="_blank" rel="noopener" style="padding: var(--space-sm); background: var(--paper); border: 1px solid var(--grid-line); border-radius: 4px; text-decoration: none; color: var(--ink);">
+        <div class="mono" style="font-size: var(--text-xs); color: var(--ink-muted); letter-spacing: 0.1em;">LINKEDIN</div>
+        <div style="margin-top: 0.3em; font-size: var(--text-base);">in/sowthri-somasundaram</div>
+      </a>
+      <a href="mailto:sowthri.industrial.ai@gmail.com" style="padding: var(--space-sm); background: var(--paper); border: 1px solid var(--grid-line); border-radius: 4px; text-decoration: none; color: var(--ink);">
+        <div class="mono" style="font-size: var(--text-xs); color: var(--ink-muted); letter-spacing: 0.1em;">EMAIL</div>
+        <div style="margin-top: 0.3em; font-size: var(--text-base);">sowthri.industrial.ai@gmail.com</div>
+      </a>
+    </div>
+
+    <p style="margin-top: var(--space-md); font-size: var(--text-sm); color: var(--ink-muted);">
+      <strong>Interview availability:</strong> can spin up the live Azure environment in ~8 minutes · ~$0.50 burn rate per session · tears down automatically (ADR-0013).
+    </p>
   </section>
 </Base>
